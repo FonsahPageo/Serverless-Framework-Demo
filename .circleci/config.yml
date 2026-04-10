@@ -14,8 +14,8 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          name: echo me
-          command: echo "Hello"
+          name: echo text
+          command: echo "Hello, this is a test job to validate the orb works in a workflow"
       - run:
           name: Run Tests
           command: npm run test
@@ -37,13 +37,13 @@ jobs:
           name: deploy
 
 workflows:
- test_and_deploy:
-  jobs:
-    - test
-    - deploy:
-        requires:
-          - test
-        filters:
+  test_and_deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
             branches:
               only: master
-        context: serverless-framework-orb-testing
+          context: aws-deploy
